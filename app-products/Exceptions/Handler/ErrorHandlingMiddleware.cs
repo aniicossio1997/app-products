@@ -28,10 +28,14 @@ namespace app_products.Exceptions.Handler
         {
             HttpStatusCode statusCode;
             string message;
-
-            if (exception is IncorrectIdException)
+            if (exception is PersonalException personalException)
             {
-                statusCode = HttpStatusCode.NotFound; // Cambia el código de estado a 404 Not Found
+                statusCode = personalException.StatusCode;
+                message = exception.Message;
+            }
+            else if (exception is IncorrectIdException incorrectIdException)
+            {
+                statusCode = HttpStatusCode.NotFound; // Código 404 Not Found para IncorrectIdException
                 message = exception.Message; // Usa el mensaje de la excepción original
             }
             else

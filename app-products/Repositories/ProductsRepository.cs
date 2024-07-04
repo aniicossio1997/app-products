@@ -45,6 +45,9 @@ namespace app_products.Repositories
             if (filters.Id.HasValue)
                 query = query.Where(p => p.Id == filters.Id);
 
+            if (filters.CategoryId.HasValue)
+                query = query.Where(p => p.CategoryId == filters.CategoryId);
+
             return query;
         }
 
@@ -74,7 +77,7 @@ namespace app_products.Repositories
             cancellationToken.ThrowIfCancellationRequested();
 
             var entityDb = await _context.Products.FirstOrDefaultAsync(p => p.Id == entityToEdit.Id, cancellationToken);
-            if (entityDb == null) throw new EntityToEditNotFoundException();
+            if (entityDb == null) throw new EntityNotFoundException();
             entityDb = _mapper.Map(entityToEdit, entityDb);
             _context.Update(entityDb);
             await _context.SaveChangesAsync(cancellationToken);

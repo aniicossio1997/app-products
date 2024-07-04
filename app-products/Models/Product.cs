@@ -8,6 +8,6 @@ namespace app_products.Models
         public Category Category { get; set; } = null!;
 
         public DateTime Date { get; set; }
-        public double Price { get; set; }
+        public int Price { get; set; }
     }
 }

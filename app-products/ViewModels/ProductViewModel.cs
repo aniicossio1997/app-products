@@ -8,6 +8,6 @@ namespace app_products.ViewModels
         public CategoryViewModel Category { get; set; }
 
         public string Date { get; set; }
-        public double Price { get; set; }
+        public int Price { get; set; }
     }
 }
