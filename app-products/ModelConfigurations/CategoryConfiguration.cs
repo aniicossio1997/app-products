@@ -6,7 +6,7 @@ using app_products.ModelConfigurations.BaseConfigurations;
 namespace app_products.ModelConfigurations
 {
 
-    internal partial class AfterSalesContext { public DbSet<Category> Categories { get; set; } = null!; }
+    internal partial class ApplicationDbContext { public DbSet<Category> Categories { get; set; } = null!; }
 
     internal class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
@@ -24,7 +24,7 @@ namespace app_products.ModelConfigurations
             modelBuilder.Entity<Category>()
                 .HasData(new Category
                 {
-
+                    Id = 1,
                     Name = "Indumentaria",
                     
                 });
@@ -32,6 +32,7 @@ namespace app_products.ModelConfigurations
             modelBuilder.Entity<Category>()
                 .HasData(new Category
                 {
+                    Id = 2,
                     Name = "Accesorios",
 
                 });

@@ -13,7 +13,7 @@ namespace app_products.ModelConfigurations
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.ToTable("products");
-            IdentifiableBaseEntityConfiguration.Configure(builder);
+            NameableBaseEntityConfiguration.Configure(builder);
 
 
         }

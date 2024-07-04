@@ -2,7 +2,7 @@
 
 namespace app_products.Models
 {
-    internal class Product : IdentifiableBaseEntity
+    internal class Product : NameableBaseEntity
     {
         public int CategoryId { get; set; }
         public Category Category { get; set; } = null!;
