@@ -1,5 +1,6 @@
 ﻿using app_products.Services.IServices;
 using app_products.ViewModels.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 
@@ -9,6 +10,7 @@ namespace app_products.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoriesService _service;
@@ -19,8 +21,9 @@ namespace app_products.Controllers
         }
         // GET: api/<CategoryController>
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] CategoryFilterViewModel filters)
+        public async Task<IActionResult> Get([FromQuery] CategoryFilterViewModel filters, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var result = await _service.GetByFilter(filters);
             return Ok(result);
         }

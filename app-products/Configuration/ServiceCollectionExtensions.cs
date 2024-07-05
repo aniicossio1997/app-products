@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace app_products
+namespace app_products.Configuration
 {
     public static class ServiceCollectionExtensions
     {

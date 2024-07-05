@@ -2,7 +2,6 @@
 using app_products.Services.IServices;
 using app_products.Services;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -10,6 +9,13 @@ using System.Reflection;
 using app_products.Repositories.IRepositories;
 using app_products.Repositories;
 using app_products.Exceptions.Handler;
+using app_products.Configuration;
+
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.OpenApi.Models;
+
 
 namespace app_products
 {
@@ -18,6 +24,8 @@ namespace app_products
         public static WebApplication InitApp(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+
             ConfigureServices(builder);
             var app=builder.Build();
             Configure(app);
@@ -26,8 +34,30 @@ namespace app_products
         public static void ConfigureServices(WebApplicationBuilder builder)
         {
             // Add services to the container.
-            #region
 
+            #region Auth
+
+            builder.Configuration.AddJsonFile("appsettings.json");
+            var secretKey = builder.Configuration.GetSection("Jwt:Key").Value;
+            var keyBytes = Encoding.UTF8.GetBytes(secretKey);
+            builder.Services.AddAuthentication(config =>
+            {
+                config.DefaultAuthenticateScheme=JwtBearerDefaults.AuthenticationScheme;
+                config.DefaultChallengeScheme=JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(config =>
+            {
+                config.RequireHttpsMetadata = false;
+                config.SaveToken=true;
+                config.TokenValidationParameters=new TokenValidationParameters
+                {
+                    IssuerSigningKey=new SymmetricSecurityKey(keyBytes),
+                    ValidateIssuer=false,
+                    ValidateAudience=false,
+                };
+            });
+            #endregion
+
+            #region
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             builder.Services.AddControllers()
@@ -70,10 +100,41 @@ namespace app_products
             });
 
             #endregion
+
+            #region Swagger
+            builder.Services.AddSwaggerGen(option =>
+            {
+                            option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
+                            option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                            {
+                                In = ParameterLocation.Header,
+                                Description = "Please enter a valid token",
+                                Name = "Authorization",
+                                Type = SecuritySchemeType.Http,
+                                BearerFormat = "JWT",
+                                Scheme = "Bearer"
+                            });
+                            option.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type=ReferenceType.SecurityScheme,
+                                Id="Bearer"
+                            }
+                        },
+                        new string[]{}
+                    }
+                });
+                        });
+            #endregion
         }
 
         public static void Configure(WebApplication app)
         {
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -84,6 +145,8 @@ namespace app_products
 
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

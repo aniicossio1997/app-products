@@ -21,33 +21,28 @@ namespace app_products.Services
         public async Task<IEnumerable<ProductViewModel>> GetByFilter(ProductFilterViewModel filters, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            // Obtener todos los productos que cumplen con los filtros básicos
-            var products = await _productsRepository.GetByFilter(filters, cancellationToken);
-
-            if (filters.BudgetPrice.HasValue)
+            if (filters.BudgetPrice==0 && filters.BudgetPrice==null)
             {
-                var productsList = (await _productsRepository.GetByFilter(new ProductFilterViewModel { }, cancellationToken)).ToList();
-                // Filtrar y ordenar los productos por categoría y precio
-                var groupedProducts = productsList
-                    .Where(p => p.Price < filters.BudgetPrice) // Filtrar por precio dentro del presupuesto
-                    .GroupBy(p => p.Category.Id) // Agrupar por categoría
-                    .Select(g => g.OrderByDescending(p => p.Price).FirstOrDefault()) // Seleccionar el más caro por categoría
-                    .ToList();
+                return (await _productsRepository.GetByFilter(new ProductFilterViewModel { }, cancellationToken));
+            }
+            // Obtener todos los productos que cumplen con los filtros básicos
+            var productsList = (await _productsRepository.GetByFilter(new ProductFilterViewModel { }, cancellationToken)).ToList();
+            // Filtrar y ordenar los productos por categoría y precio
+            var groupedProducts = productsList
+                .Where(p => p.Price < filters.BudgetPrice) // Filtrar por precio dentro del presupuesto
+                .GroupBy(p => p.Category.Id) // Agrupar por categoría
+                .Select(g => g.OrderByDescending(p => p.Price).FirstOrDefault()) // Seleccionar el más caro por categoría
+                .ToList();
 
-                // Validar si se encontró al menos un producto por categoría
-                if (groupedProducts.Count < 2)
-                {
-                    throw new EntityNotFoundException(MessageError.NoBudgetFound);
-                }
-
-                // Seleccionar los dos productos con la menor diferencia respecto al presupuesto
-
-                return await FindBestCombinationV1(filters.BudgetPrice.Value, cancellationToken);
-
-                
+            // Validar si se encontró al menos un producto por categoría
+            if (groupedProducts.Count < 2)
+            {
+                throw new EntityNotFoundException(MessageError.NoBudgetFound);
             }
 
-            return products;
+            // Seleccionar los dos productos con la menor diferencia respecto al presupuesto
+
+            return await FindBestCombinationV1(filters.BudgetPrice, cancellationToken);
 
 
 

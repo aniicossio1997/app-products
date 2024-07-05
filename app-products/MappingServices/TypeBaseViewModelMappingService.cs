@@ -11,6 +11,7 @@ namespace app_products.MappingServices
         public TypeBaseViewModelMappingService()
         {
             CreateMap<Category, TypeBaseViewModel>();
+            CreateMap<User, TypeBaseViewModel>();
 
         }
     }

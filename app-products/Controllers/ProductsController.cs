@@ -1,6 +1,7 @@
 ﻿using app_products.Services.IServices;
 using app_products.ViewModels;
 using app_products.ViewModels.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 
@@ -10,6 +11,7 @@ namespace app_products.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductsService _service;

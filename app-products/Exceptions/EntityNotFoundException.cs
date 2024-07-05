@@ -4,7 +4,7 @@ namespace app_products.Exceptions
 {
     public class EntityNotFoundException : PersonalException
     {
-        private static readonly string _message = "No se encontro un presupuesto";
+        private static readonly string _message = "No se encontro";
 
         public EntityNotFoundException() : base(HttpStatusCode.BadRequest, _message)
         {

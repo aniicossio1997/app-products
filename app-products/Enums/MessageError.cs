@@ -2,8 +2,11 @@
 {
     public class MessageError
     {
-         public static string NoBudgetFound = "No se encontro un presupeusto ";
-
+         public static string NoBudgetFound = "No se encontro productospara ese presupeusto ";
+         public static string NumberIsGreter = "El numero debe ser mayor ";
+         public static string NumberIsLower =  "El numero debe ser menor ";
+         public static string NameIsRequired = "El Nombre es requerido ";
+         public static string MaxLength = "El maximo de caracteres fue superado";  
     }
    
 }
