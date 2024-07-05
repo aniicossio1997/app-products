@@ -60,14 +60,19 @@ Estas categorías se crean automáticamente durante el proceso de inicializació
 
 
 ### Productos
-Cada producto en el sistema pertenece a una de estas dos categorías. Aquí tienes un ejemplo de cómo se define un producto en el proyecto:
+Cada producto en el sistema pertenece a una de estas dos categorías.
+Ejemplo de cómo se Veria un producto:
 
 ```csharp
-internal class ProductViewModel : NameableBaseEntity
 {
-    public Category Category { get; set; } = null!;
-    public DateTime Date { get; set; }
-    public int Price { get; set; }
+  "category": {
+    "name": "Indumentaria",
+    "id": 1
+  },
+  "date": "05/07/2024",
+  "price": 30,
+  "name": "dede back",
+  "id": 2
 }
 ```
  - **Ir al swaggger**
