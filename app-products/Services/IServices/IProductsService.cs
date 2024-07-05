@@ -5,7 +5,7 @@ namespace app_products.Services.IServices
 {
     public interface IProductsService
     {
-        Task<IEnumerable<ProductViewModel>> GetByFilter(ProductFilterViewModel filters, CancellationToken cancellationToken = default);
+        Task<IEnumerable<ProductViewModel>> GetByBudgetPrice(ProductFilterViewModel filters, CancellationToken cancellationToken = default);
 
         Task<ProductViewModel> Save(ProductPostViewModel entityToAdd, CancellationToken cancellationToken = default);
 

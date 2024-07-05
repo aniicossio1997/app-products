@@ -32,7 +32,7 @@ namespace app_products.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get([FromQuery] ProductFilterViewModel filters)
         {
-            var result = await _service.GetByFilter(filters);
+            var result = await _service.GetByBudgetPrice(filters);
             return Ok(result);
         }
 

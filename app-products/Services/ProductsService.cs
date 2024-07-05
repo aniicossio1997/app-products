@@ -23,7 +23,7 @@ namespace app_products.Services
         {
             return await _productsRepository.GetFirstByFilter(new ProductFilterViewModel { Id=id},cancellationToken);
         }
-        public async Task<IEnumerable<ProductViewModel>> GetByFilter(ProductFilterViewModel filters, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProductViewModel>> GetByBudgetPrice(ProductFilterViewModel filters, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (filters.BudgetPrice==0 && filters.BudgetPrice==null)
