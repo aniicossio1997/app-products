@@ -79,4 +79,5 @@ Ejemplo de cómo se Veria un producto:
  -     https://localhost:44361/swagger/index.html
 
 
-
+Muestra de como se veria el Swagger:
+ ![enter image description here](https://raw.githubusercontent.com/aniicossio1997/app-products/main/Photos/Plantilla.png)
