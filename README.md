@@ -1,5 +1,12 @@
 # app-products
 
+Listado de herramientas:
+- Moq junto con Xunit para realizar pruebas unitarias para la obtención del presupuesto de productos.
+- AutoMapper
+- FluentValidation
+- EntityFramework
+- JwtBearer
+  
 ## Descripción
 Este proyecto es una aplicación ASP.NET Core 8 que utiliza Entity Framework Core para la gestión de la base de datos. A continuación, se detallan los pasos para configurar y ejecutar las migraciones de la base de datos.
 
@@ -81,3 +88,6 @@ Ejemplo de cómo se Veria un producto:
 
 Muestra de como se veria el Swagger:
  ![enter image description here](https://raw.githubusercontent.com/aniicossio1997/app-products/main/Photos/Plantilla.png)
+
+ Muestra de como se ejecuto las pruebas para la obtención del presupuesto de productos. :
+ ![enter image description here](![image](https://github.com/aniicossio1997/app-products/assets/37483085/161b6186-ae4d-47cb-bdea-b828041a2643)
