@@ -1,11 +1,11 @@
-# app-products
+# App-products
 
 Listado de herramientas:
 - Moq junto con Xunit para realizar pruebas unitarias para la obtención del presupuesto de productos.
 - AutoMapper
 - FluentValidation
 - EntityFramework
-- JwtBearer
+- JwtBearer  -> Para acceder a los endpoints se debe incorporar el token de autenticación
   
 ## Descripción
 Este proyecto es una aplicación ASP.NET Core 8 que utiliza Entity Framework Core para la gestión de la base de datos. A continuación, se detallan los pasos para configurar y ejecutar las migraciones de la base de datos.
