@@ -12,6 +12,8 @@ namespace app_products.Services.IServices
         Task<ProductViewModel> Update(int id, ProductPutViewModel entityToAdd, CancellationToken cancellationToken = default);
 
         Task<bool> Delete(int id, CancellationToken cancellationToken = default);
+        Task<ProductViewModel> GetFirstByFilter(int id, CancellationToken cancellationToken);
+
 
     }
 }

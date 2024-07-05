@@ -27,7 +27,7 @@ namespace app_products.Controllers
         /// <param name="filters"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("Budget")]
         [ProducesResponseType(typeof(ProductViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get([FromQuery] ProductFilterViewModel filters)
@@ -38,9 +38,13 @@ namespace app_products.Controllers
 
         // GET api/<ProductsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        [ProducesResponseType(typeof(ProductViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Get(int id, CancellationToken cancellationToken)
         {
-            return "value";
+            cancellationToken.ThrowIfCancellationRequested();
+            return Ok(await _service.GetFirstByFilter(id, cancellationToken));
         }
         [HttpPost]
         [ProducesResponseType(typeof(ProductViewModel), StatusCodes.Status200OK)]

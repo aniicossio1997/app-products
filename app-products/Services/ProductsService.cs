@@ -18,6 +18,11 @@ namespace app_products.Services
         {
             this._productsRepository = productsRepository;
         }
+
+        public async Task<ProductViewModel> GetFirstByFilter(int id, CancellationToken cancellationToken)
+        {
+            return await _productsRepository.GetFirstByFilter(new ProductFilterViewModel { Id=id},cancellationToken);
+        }
         public async Task<IEnumerable<ProductViewModel>> GetByFilter(ProductFilterViewModel filters, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -149,7 +154,6 @@ namespace app_products.Services
 
             return bestCombination;
         }
-
 
 
     }
